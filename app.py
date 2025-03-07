@@ -172,6 +172,8 @@ st.markdown("""
 # Session state for login
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
+if "username" not in st.session_state:
+    st.session_state.username = ""
 
 # Intro page
 if not st.session_state.logged_in:
@@ -192,17 +194,15 @@ if not st.session_state.logged_in:
 
     # Login form
     with st.form(key="login_form"):
-        username = st.text_input("Enter your galactic ID:", key="username", placeholder="Cosmonaut Name")
+        username = st.text_input("Enter your galactic ID:", key="username_input", placeholder="Cosmonaut Name")
         submit = st.form_submit_button(label="Launch 🚀", help="Enter the Senti-Aly universe!")
 
         if submit and username:
-            st.session_state.logged_in = True
-            st.session_state.username = username
-            st.rerun()
+            # Safely update session state
+            st.session_state["logged_in"] = True
+            st.session_state["username"] = username
 
-    st.markdown("""
-        </div>
-    """, unsafe_allow_html=True)
+    # No st.rerun() here, let Streamlit handle the state transition naturally
 
 # Main app page
 else:
@@ -211,7 +211,8 @@ else:
     # Logout button
     if st.button("Logout 🌠", key="logout"):
         st.session_state.logged_in = False
-        st.rerun()
+        st.session_state.username = ""
+        # No st.rerun() needed here, Streamlit will handle it
 
     with st.form(key="sentiment_form"):
         user_text = st.text_area("Input your data stream:", height=200, key="text_input", 
