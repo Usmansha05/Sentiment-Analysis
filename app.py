@@ -22,99 +22,112 @@ def analyze_sentiment(text):
 # Suggestions for negative sentiment
 def get_suggestion():
     suggestions = [
-        "How about taking a short break to clear your mind? 🌞",
-        "Maybe share your thoughts with a friend — it could lighten the load! 🤗",
-        "Try focusing on something you enjoy for a bit! 🎨",
-        "A quick walk might turn things around — fresh air works wonders! 🌳",
-        "You’ve got this! How about a small step forward? 💪"
+        "Take a moment to reboot — a break might help! 🤖",
+        "Ping a friend for a quick sync — it could lift your circuits! ⚡️",
+        "Switch to a fun task for a bit — recharge those vibes! 🕹️",
+        "Step into the grid for a walk — fresh data incoming! 🌐",
+        "System check: You’re stronger than this glitch! 🚀"
     ]
     return random.choice(suggestions)
 
 # Appreciation for positive sentiment
 def get_appreciation():
     appreciations = [
-        "Wow, your positivity is contagious! Keep shining! ✨",
-        "Love the good vibes — you’re inspiring! 🌟",
-        "That’s awesome — thanks for spreading joy! 😊",
-        "You’re on fire with that energy! 🔥",
-        "Amazing outlook — keep it up! 🎉"
+        "Your positivity is overclocking the system — epic! ⚡️",
+        "High-voltage vibes detected — you’re electric! 🌩️",
+        "Processing joy at max capacity — awesome! 🖥️",
+        "You’re running at peak performance — stellar! 🌌",
+        "System approves: Keep that energy flowing! 🤖"
     ]
     return random.choice(appreciations)
 
-# Custom CSS for styling
+# Custom CSS for robotic theme
 st.markdown("""
     <style>
         .title {
-            font-size: 48px;
+            font-size: 50px;
             font-weight: bold;
-            color: #FF4B4B;
+            color: #00FFFF; /* Cyan */
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px #00FFFF;
+            font-family: 'Courier New', monospace;
         }
         .emoji {
-            font-size: 80px;
+            font-size: 40px; /* Smaller emoji */
             display: inline-block;
-            animation: bounce 1s infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            margin-right: 10px;
         }
         .result-box {
-            background-color: #F0F2F6;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            background-color: #1A1A1A; /* Dark gray */
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #00FFFF;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            margin-top: 30px;
+            min-height: 200px; /* Bigger response field */
         }
         .text-area {
-            font-size: 18px;
-            border: 2px solid #FF4B4B;
-            border-radius: 10px;
+            font-size: 20px;
+            border: 2px solid #00FFFF;
+            border-radius: 8px;
+            background-color: #2D2D2D;
+            color: #FFFFFF;
+            padding: 10px;
         }
         .button {
-            background-color: #FF4B4B;
-            color: white;
-            font-size: 20px;
-            padding: 10px 20px;
-            border-radius: 10px;
+            background-color: #00FFFF;
+            color: #000000;
+            font-size: 22px;
+            padding: 12px 25px;
+            border-radius: 8px;
             border: none;
             cursor: pointer;
+            box-shadow: 0 0 10px #00FFFF;
+            font-family: 'Courier New', monospace;
         }
         .button:hover {
-            background-color: #FF6B6B;
+            background-color: #00CCCC;
+            box-shadow: 0 0 15px #00CCCC;
         }
         .message {
-            font-size: 24px;
-            color: #333;
+            font-size: 28px; /* Larger message */
+            color: #FFFFFF;
             font-weight: bold;
+            font-family: 'Courier New', monospace;
         }
         .suggestion {
-            font-size: 20px;
-            color: #4CAF50;
-            margin-top: 10px;
+            font-size: 24px; /* Larger suggestions */
+            color: #00FFFF;
+            margin-top: 15px;
+            text-shadow: 0 0 5px #00FFFF;
+            font-family: 'Courier New', monospace;
+        }
+        body {
+            background-color: #000000; /* Black background */
+            color: #FFFFFF;
         }
     </style>
 """, unsafe_allow_html=True)
 
 # App layout
-st.markdown('<div class="title">🎭 Sentiment Analysis Hub</div>', unsafe_allow_html=True)
+st.markdown('<div class="title">🤖 Sentiment Analysis Core</div>', unsafe_allow_html=True)
 
-user_text = st.text_area("Tell us how you feel:", height=150, key="text_input", 
-                        help="Type your thoughts here!", 
-                        placeholder="What’s on your mind? 😊")
+user_text = st.text_area("Input your data stream:", height=200, key="text_input", 
+                        help="Transmit your thoughts here!", 
+                        placeholder="What’s processing in your system? ⚡️")
 
-if st.button("Analyze Now", key="analyze_button", help="Click to analyze your text!"):
+if st.button("Execute Analysis", key="analyze_button", help="Initiate sentiment processing!"):
     if user_text:
         vader_sentiment, bert_sentiment = analyze_sentiment(user_text)
         
         emoji_dict = {
-            "Positive": "😃",
-            "Negative": "😢",
-            "Neutral": "😐"
+            "Positive": "🚀",  # More robotic-themed icons
+            "Negative": "⚠️",
+            "Neutral": "🤖"
         }
         
-        # Determine final sentiment (using VADER as primary, BERT as tiebreaker for Neutral)
+        # Determine final sentiment
         if vader_sentiment == "Neutral":
             final_sentiment = bert_sentiment
         else:
@@ -126,14 +139,14 @@ if st.button("Analyze Now", key="analyze_button", help="Click to analyze your te
         st.markdown(f'<div class="result-box"><span class="emoji">{emoji}</span>', unsafe_allow_html=True)
         
         if final_sentiment == "Positive":
-            st.markdown(f'<p class="message">That sounds wonderful!</p>', unsafe_allow_html=True)
+            st.markdown(f'<p class="message">System Status: Optimal!</p>', unsafe_allow_html=True)
             st.markdown(f'<p class="suggestion">{get_appreciation()}</p>', unsafe_allow_html=True)
         elif final_sentiment == "Negative":
-            st.markdown(f'<p class="message">Hmm, that seems tough...</p>', unsafe_allow_html=True)
+            st.markdown(f'<p class="message">Alert: Low Energy Detected...</p>', unsafe_allow_html=True)
             st.markdown(f'<p class="suggestion">{get_suggestion()}</p>', unsafe_allow_html=True)
         else:
-            st.markdown(f'<p class="message">Keeping it balanced, huh?</p>', unsafe_allow_html=True)
+            st.markdown(f'<p class="message">Status: Stable Output</p>', unsafe_allow_html=True)
         
         st.markdown('</div>', unsafe_allow_html=True)
     else:
-        st.warning("Oops! Please share some text first! 😅")
+        st.warning("Error: No data input detected! ⚠️")
