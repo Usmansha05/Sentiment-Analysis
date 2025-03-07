@@ -3,8 +3,6 @@ import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 from transformers import pipeline
 import random
-from streamlit_lottie import st_lottie
-import requests
 
 nltk.download("vader_lexicon")
 
@@ -21,13 +19,6 @@ def analyze_sentiment(text):
     
     return vader_sentiment, bert_sentiment
 
-# Function to load Lottie animation
-def load_lottieurl(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
 # Suggestions for negative sentiment
 def get_suggestion():
     suggestions = [
@@ -35,7 +26,7 @@ def get_suggestion():
         "Ping a friend for a quick sync — it could lift your circuits! ⚡️",
         "Switch to a fun task for a bit — recharge those vibes! 🕹️",
         "Step into the grid for a walk — fresh data incoming! 🌐",
-        "System check: You're stronger than this glitch! 🚀"
+        "System check: You’re stronger than this glitch! 🚀"
     ]
     return random.choice(suggestions)
 
@@ -43,9 +34,9 @@ def get_suggestion():
 def get_appreciation():
     appreciations = [
         "Your positivity is overclocking the system — epic! ⚡️",
-        "High-voltage vibes detected — you're electric! 🌩️",
+        "High-voltage vibes detected — you’re electric! 🌩️",
         "Processing joy at max capacity — awesome! 🖥️",
-        "You're running at peak performance — stellar! 🌌",
+        "You’re running at peak performance — stellar! 🌌",
         "System approves: Keep that energy flowing! 🤖"
     ]
     return random.choice(appreciations)
@@ -63,9 +54,9 @@ st.markdown("""
             font-family: 'Courier New', monospace;
         }
         .emoji {
-            font-size: 24px; /* Smaller emoji box */
+            font-size: 40px; /* Smaller emoji */
             display: inline-block;
-            margin-right: 5px;
+            margin-right: 10px;
         }
         .result-box {
             background-color: #1A1A1A; /* Dark gray */
@@ -112,23 +103,9 @@ st.markdown("""
             text-shadow: 0 0 5px #00FFFF;
             font-family: 'Courier New', monospace;
         }
-        .lottie-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
         body {
             background-color: #000000; /* Black background */
             color: #FFFFFF;
-        }
-        /* For custom iframe embedding */
-        .lottie-iframe {
-            width: 150px;
-            height: 150px;
-            border: none;
-            margin: 0 auto;
-            display: block;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -136,29 +113,9 @@ st.markdown("""
 # App layout
 st.markdown('<div class="title">🤖 Sentiment Analysis Core</div>', unsafe_allow_html=True)
 
-# Add Lottie animation (using streamlit_lottie method)
-lottie_url = "https://lottie.host/9c1a089d-c174-4478-9aed-a2360b447aaa/7G56ObfSMl.lottie"
-lottie_json = load_lottieurl(lottie_url)
-
-# Display Lottie animation
-if lottie_json:
-    st.markdown('<div class="lottie-container">', unsafe_allow_html=True)
-    st_lottie(lottie_json, speed=1, height=200, key="lottie")
-    st.markdown('</div>', unsafe_allow_html=True)
-else:
-    # Fallback to iframe method if streamlit_lottie doesn't work
-    st.markdown("""
-    <div class="lottie-container">
-        <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
-        <dotlottie-player src="https://lottie.host/9c1a089d-c174-4478-9aed-a2360b447aaa/7G56ObfSMl.lottie" 
-                         background="transparent" speed="1" style="width: 200px; height: 200px" loop autoplay>
-        </dotlottie-player>
-    </div>
-    """, unsafe_allow_html=True)
-
 user_text = st.text_area("Input your data stream:", height=200, key="text_input", 
                         help="Transmit your thoughts here!", 
-                        placeholder="What's processing in your system? ⚡️")
+                        placeholder="What’s processing in your system? ⚡️")
 
 if st.button("Execute Analysis", key="analyze_button", help="Initiate sentiment processing!"):
     if user_text:
