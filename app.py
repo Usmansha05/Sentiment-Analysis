@@ -46,16 +46,18 @@ def get_appreciation():
     return random.choice(appreciations)
 
 # Custom CSS for intro and app pages
+image_path = "galaxy-night-view.jpg"
 st.markdown("""
     <style>
         /* Space-themed background */
-        body {
-            background: linear-gradient(135deg, #0D1B2A 0%, #1B263B 50%, #415A77 100%);
-            background-size: 200% 200%;
-            animation: spaceFlow 15s ease infinite;
+        body {{
+            background: url("data:image/jpg;base64,{st.image(image_path, output_format='auto')}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: #FFFFFF;
             font-family: 'Courier New', monospace;
-        }
+        }}
         @keyframes spaceFlow {
             0% { background-position: 0% 0%; }
             50% { background-position: 100% 100%; }
