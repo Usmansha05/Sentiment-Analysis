@@ -51,7 +51,7 @@ st.markdown("""
     <style>
         /* Space-themed background */
         body {
-            background: url("https://github.com/Usmansha05/Sentiment-Analysis/blob/main/galaxy-night-view.jpg");
+            background: url("https://imgur.com/a/212KTdG");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
