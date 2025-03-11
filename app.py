@@ -50,14 +50,14 @@ image_path = "galaxy-night-view.jpg"
 st.markdown("""
     <style>
         /* Space-themed background */
-        body {{
-            background: url("data:image/jpg;base64,{st.image(image_path, output_format='auto')}");
+        body {
+            background: url("https://github.com/Usmansha05/Sentiment-Analysis/blob/main/galaxy-night-view.jpg");
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             color: #FFFFFF;
             font-family: 'Courier New', monospace;
-        }}
+        }
         @keyframes spaceFlow {
             0% { background-position: 0% 0%; }
             50% { background-position: 100% 100%; }
